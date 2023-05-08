@@ -7,4 +7,7 @@ bot.launch();
 
 process.once("SIGINT", () => bot.stop("SIGINT"));
 process.once("SIGTERM", () => bot.stop("SIGTERM"));
-console.log();
+
+{
+  // https://www.youtube.com/watch?v=-6ufFPvp6CY  (time 9:54)
+}
