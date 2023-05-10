@@ -1,6 +1,7 @@
 import { Telegraf } from 'telegraf';
 import { message } from 'telegraf/filters';
 import config from 'config';
+import { ogg } from './ogg.js';
 
 const bot = new Telegraf(config.get('TELEGRAM_TOKEN'));
 // bot.on(message('text'), async ctx => {
@@ -8,9 +9,12 @@ const bot = new Telegraf(config.get('TELEGRAM_TOKEN'));
 // });
 bot.on(message('voice'), async ctx => {
   try {
-    // await ctx.reply(JSON.stringify(ctx.message.voice, null, 2));
     const link = await ctx.telegram.getFileLink(ctx.message.voice.file_id);
-    const userID = String(ctx.message.from.id);
+    const userId = String(ctx.message.from.id);
+    const oggPath = await ogg.create(link.href, userId);
+    await ctx.reply(JSON.stringify(link, null, 2));
+    // const mp3Path = await ogg.toMp3(oggPath);
+    // await ctx.reply(mp3Path, userId);
   } catch (e) {
     console.log(e);
   }
